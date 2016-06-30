@@ -1,0 +1,82 @@
+PROGRAM Zamena_the_word;
+VAR
+     str, words, new_word: STRING;
+     i, j: INTEGER;
+     fin, fout: TEXT;
+
+FUNCTION ZAMENA(VAR str, str_w, new_w: STRING): STRING;
+    VAR extra_str, new_str: STRING; i, j, k, l: INTEGER;
+    BEGIN
+        extra_str := '';
+        i := 1;
+        j := 1;
+        new_str := '';
+            WHILE i <= LENGTH(str) //цикл посимвольной обработки строки}
+            DO
+                BEGIN
+                    IF str[i] = str_w[j] {если буква равна первой букве нашего слова, которое нужно удалить, то}
+                    THEN
+                        BEGIN {если равно, то}
+                            k := i;
+                            extra_str := extra_str + str[i];{добавляем во временную строку первую совпавшую букву}
+                            FOR j := 2 TO LENGTH(str_w) {цикл  со второй буквы слова, до последней буквы слова}
+                            DO
+                                BEGIN
+                                    k := k + 1;
+                                    IF k <= LENGTH(str)
+                                    THEN
+                                        BEGIN
+                                            IF str[k] = str_w[j] {если буква слова и строки равны}
+                                            THEN
+                                                BEGIN
+                                                    extra_str := extra_str + str[k]; {добавляем во временную строку совпавшую букву}
+                                                END
+                                        END
+                                END;
+                            IF LENGTH(extra_str) = LENGTH(str_w)//проверяем длину временной строки и длину слова}
+                            THEN
+                                BEGIN
+                                    i := k + 1; {если длины равны, значит мы нашли искомое слово в тексте и заменяем его}
+                                    new_str := new_str + new_w
+                                END
+                            ELSE
+                                FOR l := 1 TO LENGTH(str_w) - 1
+                                DO
+                                    BEGIN
+                                        new_str := new_str + str[i];
+                                        i := i + 1
+                                    END;
+                            extra_str := ''; {обнуляем 
+временную строчку}
+                            j := 1;
+                        END
+                    ELSE //если первые буквы не равны, то записываем букву в нашу новую строчку}
+                        BEGIN
+                            new_str := new_str + str[i];
+                            i := i + 1    
+                        END;
+                END;
+                i := 1;
+                j := 1;
+                k := 1;
+        Zamena := new_str;
+    END;
+
+BEGIN
+     ASSIGN(fin, 'input1.txt');
+     RESET(fin);
+     ASSIGN(fout, 'output1.txt');
+     REWRITE(fout);
+     WRITE('Введите слово, которое нужно удалить: words');
+     READLN(words);
+     WRITE('Введите слово, которым нужно заменить: ');
+     READLN(new_word);
+     WHILE NOT EOF(fin)
+     DO
+        BEGIN
+            readln(fin, str);
+            writeln(fout, ZAMENA(str, words, new_word));
+        END;
+     CLOSE(fin);
+     CLOSE(fout);
+END.
