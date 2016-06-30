@@ -44,7 +44,7 @@ void CObfuscator::DeleteComments()
 		}
 		else if (m_commentState == STATE::MILTILINE && (posEnd >= 0 && posEnd <= str.length()))
 		{
-			str.erase(begin(str), begin(str) + posEnd);
+			str.erase(begin(str), begin(str) + posEnd + 1);
 			m_commentState = STATE::NOTHING;
 		}
 		else if ((onelinePos >= 0 && onelinePos < str.length()) && (m_commentState != STATE::MILTILINE))
