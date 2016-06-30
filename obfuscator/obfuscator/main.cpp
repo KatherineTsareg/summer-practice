@@ -7,8 +7,8 @@
 int main()
 {
 	CObfuscator obfuscator("input.txt");
-	obfuscator.DeleteComments();
-	obfuscator.ShowCode();
+	obfuscator.Start();
+	//obfuscator.ShowCode();
     return 0;
 }
 

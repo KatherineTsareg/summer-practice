@@ -15,5 +15,9 @@
 #include <algorithm>
 #include <fstream>
 #include <iostream>
+#include <set>
+#include <cstdlib>
+#include <ctime>
+#include <sstream>
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы
