@@ -1,4 +1,9 @@
 PROGRAM Zamena_the_word;
+CONST 
+	pol = 9.8;
+	lop = 45;
+	fil = "dlop";
+
 VAR
 	str, words, new_word: STRING;
 	i, j: INTEGER;

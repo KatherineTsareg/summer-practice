@@ -3,7 +3,7 @@
 
 using namespace std;
 
-const vector<string> delimeters = {",", ":", ";", "-", "+",  "*",  "/", "=",  "(", ")", "[", "]" };
+const vector<string> delimeters = {",", ":", ";", "-", "+",  "*",  "/", "=",  "(", ")", "[", "]"};
 
 std::vector<std::pair<std::string, std::string>>::iterator FindVal(std::string & val, std::vector<std::pair<std::string, std::string>> & vec)
 {
@@ -90,11 +90,11 @@ void CVariables::FindAndcreateVariablesNames(std::string const& str)
 	string var;
 	while (ss >> var)
 	{
-		if (var != "," && var != ":" && var != ";" && var != "VAR" && m_typeState == STATE::VARIABLES)
+		if (var != "," && var != "=" && var != ":" && var != ";" && var != "VAR" && var != "CONST" && m_typeState == STATE::VARIABLES)
 		{
 			AddNewNameToOldName(var);
 		}
-		else if (var == ":")
+		else if (var == ":" || var == "=")
 		{
 			m_typeState = STATE::NOTHING;
 		}
@@ -127,8 +127,8 @@ void CVariables::FindAllVarNames()
 		}
 		size_t varPos = str.find("VAR");
 		size_t beginPos = str.find("BEGIN");
-		
-		if (varPos >= 0 && varPos < str.length() && m_varState == STATE::NOTHING)
+		size_t constPos = str.find("CONST");
+		if (varPos >= 0 && varPos < str.length() && m_varState == STATE::NOTHING || constPos >= 0 && constPos < str.length() && m_varState == STATE::NOTHING)
 		{
 			FindAndcreateVariablesNames(str);
 			m_varState = STATE::VARIABLES;
@@ -162,10 +162,12 @@ void CVariables::ReplacementNames()
 
 	for (auto & str : m_code)
 	{
+		str.insert(0, " ");
 		for (auto name : m_variablesMap)
 		{
-			boost::replace_all(str, " " + name.first, " " + name.second);
+			boost::replace_all(str, " " + name.first + " ", " " + name.second + " ");
 		}
+		str.erase(str.begin(), str.begin() + 1);
 		for (auto del : delimeters)
 		{
 			boost::replace_all(str, " " + del + " ", del);

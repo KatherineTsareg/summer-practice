@@ -18,22 +18,6 @@ void CDelete::DeleteTab()
 	}
 }
 
-void CDelete::DeleteSpaces()
-{
-	{
-		//удалить лиишние пробелы
-		for (auto &str : m_inputText)
-		{
-			for (int i = 0; i < str.length(); i++)
-				if (str[i] == ' ' && str[i + 1] == ' ')
-				{
-					str.erase(i, 1);
-					i = (i - 1);
-				}
-		}
-		//удалить пробелы между разделителями
-	}
-}
 
 void CDelete::DeleteComments()
 {
@@ -63,11 +47,24 @@ void CDelete::DeleteComments()
 	}
 }
 
+void CDelete::DeleteExtraLineBreaks()
+{
+	for (auto str = m_inputText.begin(); str != m_inputText.end();)
+	{
+		if (*str == "")
+		{
+			--str;
+			m_inputText.erase(str + 1);
+		}
+		++str;
+	}
+}
+
 void CDelete::CodeChange()
 {
 	DeleteTab();
 	DeleteComments();
-	//DeleteSpaces();
+	DeleteExtraLineBreaks();
 }
 
 std::vector<std::string> CDelete::GetResult() const

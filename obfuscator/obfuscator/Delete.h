@@ -14,8 +14,8 @@ private:
 	int m_commentState = STATE::NOTHING;
 
 	void DeleteTab();
-	void DeleteSpaces();
 	void DeleteComments();
+	void DeleteExtraLineBreaks();
 };
 
 	
