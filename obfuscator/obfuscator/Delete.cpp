@@ -10,15 +10,11 @@ CDelete::CDelete(std::vector<std::string> const& vector1)
 {
 }
 
-void CDelete::DeleteTabAndHyph()
+void CDelete::DeleteTab()
 {
-	for (string  &str : m_inputText)
+	for (auto &str : m_inputText)
 	{ 
-		if (( str.find('\t') != -1) || (str.find('/n') != -1))
-		{
-			str = "";
-		}
-
+		boost::replace_all(str, "\t", "");
 	}
 }
 
@@ -69,9 +65,9 @@ void CDelete::DeleteComments()
 
 void CDelete::CodeChange()
 {
+	DeleteTab();
 	DeleteComments();
 	//DeleteSpaces();
-	//DeleteTabAndHyph();
 }
 
 std::vector<std::string> CDelete::GetResult() const

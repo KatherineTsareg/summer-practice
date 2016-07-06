@@ -19,5 +19,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <sstream>
+#include <map>
+#include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string.hpp>
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы

@@ -33,6 +33,7 @@ void CObfuscator::Start()
 
 	CVariables variables(m_code);
 	variables.Renaming();
+	m_code = variables.GetResult();
 }
 
 void CObfuscator::ShowCode() const

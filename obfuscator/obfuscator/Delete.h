@@ -13,7 +13,7 @@ private:
 	const enum STATE { NOTHING, MILTILINE };
 	int m_commentState = STATE::NOTHING;
 
-	void DeleteTabAndHyph();
+	void DeleteTab();
 	void DeleteSpaces();
 	void DeleteComments();
 };
